@@ -15,11 +15,11 @@ class PatientRepository implements IPatientRepository {
   void dispose() {}
 
   @override
-  Future<List<PatientModel>> getPatient() async {
+  Future<List<PatientModel>> getPatient(int page) async {
     try {
-      var response = await dio.get('?results=50');
+      var response = await dio.get('?page=$page&results=50');
       var result = (response.data['results'] as List).map((json) {
-      return PatientModel.fromJson(json);
+        return PatientModel.fromJson(json);
       }).toList();
 
       return result;

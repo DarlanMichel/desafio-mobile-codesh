@@ -34,6 +34,21 @@ mixin _$HomeController on _HomeControllerBase, Store {
     });
   }
 
+  final _$pageAtom = Atom(name: '_HomeControllerBase.page');
+
+  @override
+  int get page {
+    _$pageAtom.reportRead();
+    return super.page;
+  }
+
+  @override
+  set page(int value) {
+    _$pageAtom.reportWrite(value, super.page, () {
+      super.page = value;
+    });
+  }
+
   final _$loadingAtom = Atom(name: '_HomeControllerBase.loading');
 
   @override
@@ -60,6 +75,7 @@ mixin _$HomeController on _HomeControllerBase, Store {
   String toString() {
     return '''
 listPatient: ${listPatient},
+page: ${page},
 loading: ${loading}
     ''';
   }

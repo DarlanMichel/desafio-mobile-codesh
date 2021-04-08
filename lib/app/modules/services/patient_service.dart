@@ -15,7 +15,7 @@ class PatientService implements IPatientService {
   void dispose() {}
 
   @override
-  Future<List<PatientModel>> getPatient() {
-    return patientRepository.getPatient();
+  Future<List<PatientModel>> getPatient(int page) {
+    return patientRepository.getPatient(page);
   }
 }

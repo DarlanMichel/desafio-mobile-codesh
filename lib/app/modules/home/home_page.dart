@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_application/app/modules/home/home_controller.dart';
+import 'package:flutter_application/app/modules/models/patient_model.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 
@@ -27,12 +28,13 @@ class _HomePageState extends ModularState<HomePage, HomeController> {
         ),
       ),
       body: SingleChildScrollView(
-        physics: ScrollPhysics(),
         child: Column(
           children: [
             Align(
               alignment: Alignment.center,
               child: Image(
+                height: 150,
+                width: 150,
                 image: AssetImage("assets/logo.png"),
               ),
             ),
@@ -42,27 +44,25 @@ class _HomePageState extends ModularState<HomePage, HomeController> {
                 children: [
                   Expanded(
                     child: TextFormField(
-                        decoration: InputDecoration(
-                          fillColor: Theme.of(context).primaryColor,
-                          border: OutlineInputBorder(
+                      decoration: InputDecoration(
+                        fillColor: Theme.of(context).primaryColor,
+                        border: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(30),
-                            borderSide: BorderSide(
-                                width: 2
-                            )
-                          ),
-                          hintText: 'Searching...',
-                          hintStyle: TextStyle(color: Theme.of(context).primaryColor),
-                          suffixIcon: Icon(Icons.search),
-                        ),
+                            borderSide: BorderSide(width: 2)),
+                        hintText: 'Searching...',
+                        hintStyle:
+                            TextStyle(color: Theme.of(context).primaryColor),
+                        suffixIcon: Icon(Icons.search),
                       ),
+                    ),
                   ),
                   IconButton(
-                    icon: Icon(
-                      Icons.filter_alt,
-                      color: Theme.of(context).primaryColor,
-                    ), 
-                    onPressed: (){}
-                  )
+                      icon: Icon(
+                        Icons.filter_alt,
+                        color: Theme.of(context).primaryColor,
+                        size: 45,
+                      ),
+                      onPressed: () {})
                 ],
               ),
             ),
@@ -73,26 +73,27 @@ class _HomePageState extends ModularState<HomePage, HomeController> {
                     child: CircularProgressIndicator(),
                   );
                 } else {
-                  return ListView.builder(
-                    physics: NeverScrollableScrollPhysics(),
-                    shrinkWrap: true,
-                    itemCount: controller.listPatient.length,
-                    itemBuilder: (_, i) {
-                      return GestureDetector(
-                        child: Card(
-                          margin: EdgeInsets.all(10),
-                          shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(30),
-                              side: BorderSide(
-                                color: Colors.orange,
-                                width: 2
-                            )
-                          ),
-                          child: Padding(
-                            padding: const EdgeInsets.all(8.0),
-                            child: Row(
-                              children: [
-                                Container(
+                  return Column(
+                    children: [
+                      ListView.builder(
+                        physics: NeverScrollableScrollPhysics(),
+                        shrinkWrap: true,
+                        itemCount: controller.listPatient.length,
+                        itemBuilder: (_, i) {
+                          PatientModel patient = controller.listPatient[i];
+
+                          return GestureDetector(
+                            child: Card(
+                              margin: EdgeInsets.all(10),
+                              shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(30),
+                                  side: BorderSide(
+                                      color: Theme.of(context).primaryColor, width: 2)),
+                              child: Padding(
+                                padding: const EdgeInsets.all(8.0),
+                                child: Row(
+                                  children: [
+                                    Container(
                                       width: 100,
                                       height: 100,
                                       decoration: BoxDecoration(
@@ -101,52 +102,120 @@ class _HomePageState extends ModularState<HomePage, HomeController> {
                                       ),
                                       child: ClipOval(
                                         child: Image.network(
-                                          controller.listPatient[i].pictureLarge,
-                                          height: MediaQuery.of(context).size.height,
-                                          width: MediaQuery.of(context).size.width,
+                                          patient.pictureLarge == null ?
+                                          "https://w7.pngwing.com/pngs/998/203/png-transparent-black-and-white-no-to-camera-logo-video-on-demand-retail-website-simple-no-miscellaneous-television-text.png" : 
+                                          patient.pictureLarge,
+                                          height: MediaQuery.of(context)
+                                              .size
+                                              .height,
+                                          width:
+                                              MediaQuery.of(context).size.width,
                                           fit: BoxFit.fill,
                                         ),
                                       ),
-                                ),
-                                Column(
-                                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                  crossAxisAlignment: CrossAxisAlignment.center,
-                                  children: [
-                                    Row(
-                                      mainAxisAlignment: MainAxisAlignment.center,
-                                      crossAxisAlignment: CrossAxisAlignment.center,
-                                      children: [
-                                        Text("NOME: ",
-                                          style: TextStyle(
-                                            color: Theme.of(context).primaryColor,
-                                            fontWeight: FontWeight.bold
-                                          ),
-                                        ),
-                                        Text(controller.listPatient[i].nameFirst +' '+ controller.listPatient[i].nameLast,
-                                          style: TextStyle(
-                                            color: Theme.of(context).primaryColor,
-                                          ),
-                                        )
-                                      ],
                                     ),
-                                    
-                                    Padding(
-                                      padding: const EdgeInsets.all(4.0),
-                                      child: Text("Gênero: ${controller.listPatient[i].gender}"),
-                                    ),
-                                    Padding(
-                                      padding: const EdgeInsets.all(4.0),
-                                      child: Text("Nacionalidade: ${controller.listPatient[i].nat}"),
+                                    Container(
+                                      padding: const EdgeInsets.all(10.0),
+                                      margin:  EdgeInsets.only(left: 10),
+                                      child: Column(
+                                        crossAxisAlignment: CrossAxisAlignment.start,
+                                        children: [
+                                          Row(                                 
+                                            children: [
+                                              Text(
+                                                "NOME: ",
+                                                style: TextStyle(
+                                                    color: Theme.of(context)
+                                                        .primaryColor,
+                                                    fontWeight: FontWeight.bold),
+                                              ),
+                                              Text(
+                                                '${patient.nameFirst == null ? 'Cadastro sem Nome' : patient.nameFirst}' +
+                                                ' ' + '${patient.nameLast == null ? 'Sobrenome' : patient.nameLast}',
+                                                style: TextStyle(
+                                                  color: Theme.of(context)
+                                                      .primaryColor,
+                                                ),
+                                              )
+                                            ],
+                                          ),
+                                          SizedBox(height: 10),
+                                          Row(
+                                            children: [
+                                              Text(
+                                                "GÊNERO: ",
+                                                style: TextStyle(
+                                                    color: Theme.of(context)
+                                                        .primaryColor,
+                                                    fontWeight: FontWeight.bold),
+                                              ),
+                                              Text(
+                                                patient.gender == null ? 'Cadastro sem gênero' : 
+                                                '${patient.gender == 'male' ? 'Masculino' : 'Feminino'}',
+                                                style: TextStyle(
+                                                  color: Theme.of(context)
+                                                      .primaryColor,
+                                                ),
+                                              )
+                                            ],
+                                          ),
+                                          SizedBox(height: 10),
+                                          Row(
+                                            children: [
+                                              Text(
+                                                "NACIONALIDADE: ",
+                                                style: TextStyle(
+                                                    color: Theme.of(context)
+                                                        .primaryColor,
+                                                    fontWeight: FontWeight.bold),
+                                              ),
+                                              Text(
+                                                patient.nat == null ? 'Cadastro sem Nacionalidade' : patient.nat,
+                                                style: TextStyle(
+                                                  color: Theme.of(context)
+                                                      .primaryColor,
+                                                ),
+                                              )
+                                            ],
+                                          ),
+                                        ],
+                                      ),
                                     )
                                   ],
-                                )
-                              ],
+                                ),
+                              ),
                             ),
-                          ),
-                        ),
-                        onTap: (){},
-                      );
-                    },
+                            onTap: () {
+                              Modular.to
+                                  .pushNamed("/patient", arguments: patient);
+                            },
+                          );
+                        },
+                      ),
+                      Container(
+                        width: MediaQuery.of(context).size.width,
+                        child: TextButton(
+                            onPressed: () {
+                              controller.page = controller.page + 1;
+                              controller.load();
+                            },
+                            child: Container(
+                              child: Row(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  Icon(Icons.replay_rounded, 
+                                    color: Theme.of(context).primaryColor,),
+                                  Text("Loading More...",
+                                    style: TextStyle(
+                                      color: Theme.of(context).primaryColor
+                                    ),
+                                  ),
+                                ],
+                              )
+                              )
+                              ),
+                      )
+                    ],
                   );
                 }
               },

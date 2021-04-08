@@ -1,6 +1,8 @@
 import 'package:dio/dio.dart';
 import 'package:flutter_application/app/modules/home/home_controller.dart';
 import 'package:flutter_application/app/modules/home/home_page.dart';
+import 'package:flutter_application/app/modules/patient_page/patient_controller.dart';
+import 'package:flutter_application/app/modules/patient_page/patient_page.dart';
 import 'package:flutter_application/app/modules/repositories/patient_repository.dart';
 import 'package:flutter_application/app/modules/services/patient_service.dart';
 import 'package:flutter_application/app/modules/splash/splash_module.dart';
@@ -13,6 +15,7 @@ class AppModule extends Module {
     $HomeController,
     $PatientRepository,
     $PatientService,
+    $PatientController,
     Bind((i) => Dio(BaseOptions(
       baseUrl: URL_BASE,
       connectTimeout: 5000,)))
@@ -22,6 +25,7 @@ class AppModule extends Module {
   final List<ModularRoute> routes = [
     ModuleRoute(Modular.initialRoute, module: SplashModule()),
     ChildRoute('/home', child: (_, args) => HomePage()),
+    ChildRoute('/patient', child: (_, args) => PatientPage(model: args.data,)),
   ];
 
 }

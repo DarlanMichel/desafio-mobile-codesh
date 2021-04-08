@@ -17,6 +17,7 @@ dependencies:
   mobx: ^2.0.1
   flutter_mobx: ^2.0.0
   http: ^0.13.1
+  intl: ^0.17.0
 
 dev_dependencies:
   flutter_test:

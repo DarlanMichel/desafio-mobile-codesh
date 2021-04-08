@@ -11,12 +11,15 @@ class HomeController = _HomeControllerBase with _$HomeController;
 abstract class _HomeControllerBase with Store {
   final IPatientRepository repository;
 
-  _HomeControllerBase(this.repository){
+  _HomeControllerBase(this.repository) {
     load();
   }
 
   @observable
   List<PatientModel> listPatient;
+
+  @observable
+  int page = 1;
 
   @observable
   bool loading = false;
@@ -25,7 +28,8 @@ abstract class _HomeControllerBase with Store {
   Future<void> load() async {
     loading = true;
     await Future.delayed(Duration(seconds: 1));
-    listPatient = await repository.getPatient().asObservable();
+    listPatient = await repository.getPatient(page).asObservable();
     loading = false;
   }
+
 }
