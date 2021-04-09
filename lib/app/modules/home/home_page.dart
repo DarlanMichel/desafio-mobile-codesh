@@ -56,13 +56,18 @@ class _HomePageState extends ModularState<HomePage, HomeController> {
                       ),
                     ),
                   ),
-                  IconButton(
-                      icon: Icon(
-                        Icons.filter_alt,
+                  PopupMenuButton(
+                      icon: Icon(Icons.filter_alt_rounded,
                         color: Theme.of(context).primaryColor,
                         size: 45,
                       ),
-                      onPressed: () {})
+                      onSelected: controller.selecGender,
+                      itemBuilder: (context) {
+                        return controller.filterGender.map((String gender) {
+                          return PopupMenuItem<String>(
+                              value: gender, child: Text(gender));
+                        }).toList();
+                      }),
                 ],
               ),
             ),
@@ -88,7 +93,8 @@ class _HomePageState extends ModularState<HomePage, HomeController> {
                               shape: RoundedRectangleBorder(
                                   borderRadius: BorderRadius.circular(30),
                                   side: BorderSide(
-                                      color: Theme.of(context).primaryColor, width: 2)),
+                                      color: Theme.of(context).primaryColor,
+                                      width: 2)),
                               child: Padding(
                                 padding: const EdgeInsets.all(8.0),
                                 child: Row(
@@ -102,9 +108,9 @@ class _HomePageState extends ModularState<HomePage, HomeController> {
                                       ),
                                       child: ClipOval(
                                         child: Image.network(
-                                          patient.pictureLarge == null ?
-                                          "https://w7.pngwing.com/pngs/998/203/png-transparent-black-and-white-no-to-camera-logo-video-on-demand-retail-website-simple-no-miscellaneous-television-text.png" : 
-                                          patient.pictureLarge,
+                                          patient.pictureLarge == null
+                                              ? "https://w7.pngwing.com/pngs/998/203/png-transparent-black-and-white-no-to-camera-logo-video-on-demand-retail-website-simple-no-miscellaneous-television-text.png"
+                                              : patient.pictureLarge,
                                           height: MediaQuery.of(context)
                                               .size
                                               .height,
@@ -116,22 +122,24 @@ class _HomePageState extends ModularState<HomePage, HomeController> {
                                     ),
                                     Container(
                                       padding: const EdgeInsets.all(10.0),
-                                      margin:  EdgeInsets.only(left: 10),
                                       child: Column(
-                                        crossAxisAlignment: CrossAxisAlignment.start,
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
                                         children: [
-                                          Row(                                 
+                                          Row(
                                             children: [
                                               Text(
                                                 "NOME: ",
                                                 style: TextStyle(
                                                     color: Theme.of(context)
                                                         .primaryColor,
-                                                    fontWeight: FontWeight.bold),
+                                                    fontWeight:
+                                                        FontWeight.bold),
                                               ),
                                               Text(
                                                 '${patient.nameFirst == null ? 'Cadastro sem Nome' : patient.nameFirst}' +
-                                                ' ' + '${patient.nameLast == null ? 'Sobrenome' : patient.nameLast}',
+                                                    ' ' +
+                                                    '${patient.nameLast == null ? 'Sobrenome' : patient.nameLast}',
                                                 style: TextStyle(
                                                   color: Theme.of(context)
                                                       .primaryColor,
@@ -147,11 +155,13 @@ class _HomePageState extends ModularState<HomePage, HomeController> {
                                                 style: TextStyle(
                                                     color: Theme.of(context)
                                                         .primaryColor,
-                                                    fontWeight: FontWeight.bold),
+                                                    fontWeight:
+                                                        FontWeight.bold),
                                               ),
                                               Text(
-                                                patient.gender == null ? 'Cadastro sem gênero' : 
-                                                '${patient.gender == 'male' ? 'Masculino' : 'Feminino'}',
+                                                patient.gender == null
+                                                    ? 'Cadastro sem gênero'
+                                                    : '${patient.gender == 'male' ? 'Masculino' : 'Feminino'}',
                                                 style: TextStyle(
                                                   color: Theme.of(context)
                                                       .primaryColor,
@@ -167,10 +177,13 @@ class _HomePageState extends ModularState<HomePage, HomeController> {
                                                 style: TextStyle(
                                                     color: Theme.of(context)
                                                         .primaryColor,
-                                                    fontWeight: FontWeight.bold),
+                                                    fontWeight:
+                                                        FontWeight.bold),
                                               ),
                                               Text(
-                                                patient.nat == null ? 'Cadastro sem Nacionalidade' : patient.nat,
+                                                patient.nat == null
+                                                    ? 'Cadastro sem Nacionalidade'
+                                                    : patient.nat,
                                                 style: TextStyle(
                                                   color: Theme.of(context)
                                                       .primaryColor,
@@ -197,23 +210,23 @@ class _HomePageState extends ModularState<HomePage, HomeController> {
                         child: TextButton(
                             onPressed: () {
                               controller.page = controller.page + 1;
-                              controller.load();
+                              controller.gender == null ? controller.load() : controller.specificGender();
                             },
                             child: Container(
-                              child: Row(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: [
-                                  Icon(Icons.replay_rounded, 
-                                    color: Theme.of(context).primaryColor,),
-                                  Text("Loading More...",
-                                    style: TextStyle(
-                                      color: Theme.of(context).primaryColor
-                                    ),
-                                  ),
-                                ],
-                              )
-                              )
-                              ),
+                                child: Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                Icon(
+                                  Icons.replay_rounded,
+                                  color: Theme.of(context).primaryColor,
+                                ),
+                                Text(
+                                  "Loading More...",
+                                  style: TextStyle(
+                                      color: Theme.of(context).primaryColor),
+                                ),
+                              ],
+                            ))),
                       )
                     ],
                   );

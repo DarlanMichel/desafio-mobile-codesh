@@ -18,4 +18,9 @@ class PatientService implements IPatientService {
   Future<List<PatientModel>> getPatient(int page) {
     return patientRepository.getPatient(page);
   }
+
+  @override
+  Future<List<PatientModel>> getGender(int page, String gender) {
+    return patientRepository.getGender(page, gender);
+  }
 }

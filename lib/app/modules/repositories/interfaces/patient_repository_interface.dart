@@ -3,4 +3,5 @@ import 'package:flutter_modular/flutter_modular.dart';
 
 abstract class IPatientRepository implements Disposable {
   Future<List<PatientModel>> getPatient(int page);
+  Future<List<PatientModel>> getGender(int page, String gender);
 }
