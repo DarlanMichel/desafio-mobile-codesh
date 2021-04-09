@@ -70,9 +70,9 @@ abstract class _HomeControllerBase with Store {
   String textNat;
 
   @action
-  void setNat(_textNat) async {
+  String setNat(_textNat) {
     textNat = _textNat;
-    page = 1; 
+    page = 1;
     if (textNat == 'au' ||
         textNat == 'br' ||
         textNat == 'ca' ||
@@ -90,8 +90,9 @@ abstract class _HomeControllerBase with Store {
         textNat == 'nz' ||
         textNat == 'tr' ||
         textNat == 'us') {
-          gender == null ? await specificNat() : await specific();
-        }
+      gender == null ? specificNat() : specific();
+    }
+    return null;
   }
 
   @action

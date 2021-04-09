@@ -17,7 +17,7 @@ class _HomePageState extends ModularState<HomePage, HomeController> {
   Widget build(BuildContext context) {
     return Scaffold(
       bottomNavigationBar: BottomAppBar(
-        color: Theme.of(context).accentColor,
+        color: Theme.of(context).primaryColorLight,
         child: GestureDetector(
           onTap: () {},
           child: Icon(
@@ -61,7 +61,7 @@ class _HomePageState extends ModularState<HomePage, HomeController> {
                         border: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(30),
                             borderSide: BorderSide(width: 2)),
-                        hintText: 'Searching...',
+                        hintText: 'Procurar por nacionalidade...',
                         hintStyle:
                             TextStyle(color: Theme.of(context).primaryColor),
                         suffixIcon: Icon(Icons.search),
@@ -69,6 +69,7 @@ class _HomePageState extends ModularState<HomePage, HomeController> {
                     ),
                   ),
                   PopupMenuButton(
+                      padding: EdgeInsets.only(bottom: 10),
                       icon: Icon(
                         Icons.filter_alt_rounded,
                         color: Theme.of(context).primaryColor,
@@ -106,7 +107,7 @@ class _HomePageState extends ModularState<HomePage, HomeController> {
                               shape: RoundedRectangleBorder(
                                   borderRadius: BorderRadius.circular(30),
                                   side: BorderSide(
-                                      color: Theme.of(context).primaryColor,
+                                      color: Theme.of(context).accentColor,
                                       width: 2)),
                               child: Padding(
                                 padding: const EdgeInsets.all(8.0),
@@ -117,7 +118,7 @@ class _HomePageState extends ModularState<HomePage, HomeController> {
                                       height: 100,
                                       decoration: BoxDecoration(
                                         shape: BoxShape.circle,
-                                        color: Theme.of(context).accentColor,
+                                        color: Theme.of(context).backgroundColor,
                                       ),
                                       child: ClipOval(
                                         child: Image.network(
@@ -150,20 +151,19 @@ class _HomePageState extends ModularState<HomePage, HomeController> {
                                                     fontWeight:
                                                         FontWeight.bold),
                                               ),
-                                              Flexible(
-                                                child: Container(
-                                                  child: Text(
-                                                    '${patient.nameFirst == null ? 'Cadastro sem Nome' : patient.nameFirst}' +
-                                                        ' ' +
-                                                        '${patient.nameLast == null ? 'Sobrenome' : patient.nameLast}',
-                                                    style: TextStyle(
-                                                      color: Theme.of(context)
-                                                          .primaryColor,
-                                                    ),
-                                                    overflow:
-                                                        TextOverflow.ellipsis,
-                                                    textAlign: TextAlign.start,
+                                              Container(
+                                                width: 150,
+                                                child: Text(
+                                                  '${patient.nameFirst == null ? 'Cadastro sem Nome' : patient.nameFirst}' +
+                                                      ' ' +
+                                                      '${patient.nameLast == null ? 'Sobrenome' : patient.nameLast}',
+                                                  style: TextStyle(
+                                                    color: Theme.of(context)
+                                                        .primaryColor,
                                                   ),
+                                                  overflow:
+                                                      TextOverflow.ellipsis,
+                                                  textAlign: TextAlign.start,
                                                 ),
                                               )
                                             ],
@@ -253,7 +253,7 @@ class _HomePageState extends ModularState<HomePage, HomeController> {
                                   color: Theme.of(context).primaryColor,
                                 ),
                                 Text(
-                                  "Loading More...",
+                                  "Carregar mais...",
                                   style: TextStyle(
                                       color: Theme.of(context).primaryColor),
                                 ),

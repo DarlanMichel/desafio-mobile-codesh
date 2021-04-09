@@ -23,9 +23,9 @@ class AppModule extends Module {
 
   @override
   final List<ModularRoute> routes = [
-    ModuleRoute(Modular.initialRoute, module: SplashModule()),
-    ChildRoute('/home', child: (_, args) => HomePage()),
-    ChildRoute('/patient', child: (_, args) => PatientPage(model: args.data,)),
+    ModuleRoute(Modular.initialRoute, module: SplashModule(), transition: TransitionType.fadeIn),
+    ChildRoute('/home', child: (_, args) => HomePage(), transition: TransitionType.fadeIn),
+    ChildRoute('/patient', child: (_, args) => PatientPage(model: args.data,), transition: TransitionType.fadeIn),
   ];
 
 }

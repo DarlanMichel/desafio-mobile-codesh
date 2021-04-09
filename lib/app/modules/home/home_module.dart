@@ -18,7 +18,7 @@ import 'package:flutter_modular/flutter_modular.dart';
  
   @override
   final List<ModularRoute> routes = [
-    ChildRoute(Modular.initialRoute, child: (_, args) => HomePage()),
-    ChildRoute('/patient', child: (_, args) => PatientPage(model: args.data,))
+    ChildRoute(Modular.initialRoute, child: (_, args) => HomePage(), transition: TransitionType.fadeIn),
+    ChildRoute('/patient', child: (_, args) => PatientPage(model: args.data,), transition: TransitionType.fadeIn)
   ];
  }

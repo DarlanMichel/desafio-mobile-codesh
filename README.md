@@ -1,3 +1,47 @@
+# Pharma Inc
+Este é um aplicativo desenvolvido para a empresa Pharma Inc, facilitando o gerenciamento e visualização de informações de seus clientes.
+
+## Tecnologias usadas
+- Linguagem Dart
+- Framework Flutter
+- Principais bibliotecas usadas:
+    - Dio: Para acesso a API;
+    - Modular: Gerenciamento de rotas;
+    - Mobx: Gerenciamento de estado;
+    - Intl: Conversão de data;
+
+## Instalação
+Primeiramente deve-se instalar o Dart seguindo a documentação do mesmo, link abaixo:
+https://dart.dev/get-dart
+
+Após instalação do Dart, instalar o flutter seguindo documentação abaixo:
+https://flutter.dev/docs/get-started/install
+
+Com as ferramentas devidamente instaladas é necessário fazer o Download desse repositório.
+Após o download abra o projeto com Android Studio ou com VSCode.
+Execute o comando "flutter pub get" para baixar as bibliotecas do pubspec.yaml.
+E o projeto está pronto para ser usado.
+
+## Como usar o código
+O código foi desenvolvido em cima da metodologia MVC.
+Ele está separado em Repositories, Models, Services e Pages.
+- Repositories: repositório de clientes;
+- Models: modelo de cliente;
+- Services: serviços do repositório; 
+- Pages: page = tela do aplicativo, controller = regras de negócio, modules = rotas;
+
+## Como usar o aplicativo
+O aplicativo iniciará com uma tela de Splash.
+Após o carregamento da mesma, aparecerá a tela inicial, que contém uma lista de clientes.
+Nela tem uma barra de pesquisa, no qual é possivel pesquisar pela nacionalidade do cliente utilizando as siglas em inglês.
+Ao lado da barra de pesquisa, existe um filtro de gênero, o qual é possivel filtrar por "Ambos", "Masculino", ou "Feminino".
+No final da lista existe um botão para carregar mais clientes.
+Ao clicar sobre um cliente, o aplicativo redirecionará a uma outra tela, contendo informações detalhadas sobre ele.
+Para voltar a tela anterior é necessário clicar no botão "X" no canto superior direito da tela.
+
+
+Este projeto foi desenvolvido seguindo o desafio abaixo:
+
 # Mobile Challenge 🏅 2021
 
 ## Introdução

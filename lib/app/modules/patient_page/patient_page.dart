@@ -67,7 +67,7 @@ class _PatientPageState extends ModularState<PatientPage, PatientController> {
                       height: 150,
                       decoration: BoxDecoration(
                         shape: BoxShape.circle,
-                        color: Theme.of(context).accentColor,
+                        color: Theme.of(context).backgroundColor,
                       ),
                       child: ClipOval(
                         child: Image.network(
@@ -95,7 +95,7 @@ class _PatientPageState extends ModularState<PatientPage, PatientController> {
                     Text(
                       controller.email == null ? 'Cadastro sem E-mail' : controller.email,
                       style: TextStyle(
-                          fontSize: 18, color: Color.fromRGBO(0, 131, 202, 1)),
+                          fontSize: 18, color: Theme.of(context).primaryColorLight),
                     ),
                     SizedBox(height: 20),
                     Row(
