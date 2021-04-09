@@ -41,4 +41,32 @@ class PatientRepository implements IPatientRepository {
       return e.response.data;
     }
   }
+
+  @override
+  Future<List<PatientModel>> getNat(int page, String nat) async{
+    try {
+      var response = await dio.get('?page=$page&results=50&nat=$nat');
+      var result = (response.data['results'] as List).map((json) {
+        return PatientModel.fromJson(json);
+      }).toList();
+
+      return result;
+    } on DioError catch (e) {
+      return e.response.data;
+    }
+  }
+
+  @override
+  Future<List<PatientModel>> getEspecific(int page, String gender, String nat) async {
+    try {
+      var response = await dio.get('?page=$page&results=50&nat=$nat&gender=$gender');
+      var result = (response.data['results'] as List).map((json) {
+        return PatientModel.fromJson(json);
+      }).toList();
+
+      return result;
+    } on DioError catch (e) {
+      return e.response.data;
+    }
+  }
 }

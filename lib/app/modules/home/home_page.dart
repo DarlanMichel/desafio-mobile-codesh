@@ -44,6 +44,18 @@ class _HomePageState extends ModularState<HomePage, HomeController> {
                 children: [
                   Expanded(
                     child: TextFormField(
+                      onChanged: (text) {
+                        if (text.length == 2) {
+                          FocusScope.of(context).unfocus();
+                          controller.setNat(text.toLowerCase());
+                        } else if (text.length == 0) {
+                          controller.setNat(null);
+                          controller.gender == null
+                              ? controller.load()
+                              : controller.specificGender();
+                          FocusScope.of(context).unfocus();
+                        }
+                      },
                       decoration: InputDecoration(
                         fillColor: Theme.of(context).primaryColor,
                         border: OutlineInputBorder(
@@ -57,7 +69,8 @@ class _HomePageState extends ModularState<HomePage, HomeController> {
                     ),
                   ),
                   PopupMenuButton(
-                      icon: Icon(Icons.filter_alt_rounded,
+                      icon: Icon(
+                        Icons.filter_alt_rounded,
                         color: Theme.of(context).primaryColor,
                         size: 45,
                       ),
@@ -127,6 +140,7 @@ class _HomePageState extends ModularState<HomePage, HomeController> {
                                             CrossAxisAlignment.start,
                                         children: [
                                           Row(
+                                            mainAxisSize: MainAxisSize.min,
                                             children: [
                                               Text(
                                                 "NOME: ",
@@ -136,13 +150,20 @@ class _HomePageState extends ModularState<HomePage, HomeController> {
                                                     fontWeight:
                                                         FontWeight.bold),
                                               ),
-                                              Text(
-                                                '${patient.nameFirst == null ? 'Cadastro sem Nome' : patient.nameFirst}' +
-                                                    ' ' +
-                                                    '${patient.nameLast == null ? 'Sobrenome' : patient.nameLast}',
-                                                style: TextStyle(
-                                                  color: Theme.of(context)
-                                                      .primaryColor,
+                                              Flexible(
+                                                child: Container(
+                                                  child: Text(
+                                                    '${patient.nameFirst == null ? 'Cadastro sem Nome' : patient.nameFirst}' +
+                                                        ' ' +
+                                                        '${patient.nameLast == null ? 'Sobrenome' : patient.nameLast}',
+                                                    style: TextStyle(
+                                                      color: Theme.of(context)
+                                                          .primaryColor,
+                                                    ),
+                                                    overflow:
+                                                        TextOverflow.ellipsis,
+                                                    textAlign: TextAlign.start,
+                                                  ),
                                                 ),
                                               )
                                             ],
@@ -210,7 +231,18 @@ class _HomePageState extends ModularState<HomePage, HomeController> {
                         child: TextButton(
                             onPressed: () {
                               controller.page = controller.page + 1;
-                              controller.gender == null ? controller.load() : controller.specificGender();
+                              if (controller.gender != null &&
+                                  controller.textNat == null) {
+                                controller.specificGender();
+                              } else if (controller.gender == null &&
+                                  controller.textNat != null) {
+                                controller.specificNat();
+                              } else if (controller.gender != null &&
+                                  controller.textNat != null) {
+                                controller.specific();
+                              } else {
+                                controller.load();
+                              }
                             },
                             child: Container(
                                 child: Row(
