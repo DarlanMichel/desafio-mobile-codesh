@@ -51,6 +51,13 @@ Ao clicar sobre um cliente, o aplicativo redirecionará a uma outra tela, conten
 
 Para voltar a tela anterior é necessário clicar no botão "X" no canto superior direito da tela.
 
+## Tela Principal
+
+![Tela principal](assets/home_page.jpg)
+
+## Tela Perfil
+
+![Tela perfil](assets/perfil_page.jpg)
 
 Este projeto foi desenvolvido seguindo o desafio abaixo:
 
